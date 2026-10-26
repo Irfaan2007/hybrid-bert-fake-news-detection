@@ -6,3 +6,4 @@ __pycache__/
 data/raw/
 data/processed/news_clean.csv
 data/processed/*.npy
+!data/processed/shap_background.npy

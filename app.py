@@ -19,7 +19,7 @@ from transformers import AutoTokenizer, AutoModel
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data" / "processed"
 MODEL_PATH = DATA_DIR / "logistic_regression_model.pkl"
-BACKGROUND_PATH = DATA_DIR / "X_train_fused.npy"
+BACKGROUND_PATH = DATA_DIR / "shap_background.npy"
 
 BERT_MODEL_NAME = "bert-base-uncased"
 EXPECTED_BERT_FEATURES = 768
@@ -281,10 +281,10 @@ st.sidebar.write("**BERT model:** bert-base-uncased")
 st.sidebar.write("**BERT features:** 768")
 st.sidebar.write("**Linguistic features:** 19")
 st.sidebar.write("**Total fused features:** 787")
-st.sidebar.write("**Test accuracy:** 99.20%")
+st.sidebar.write("**Saved held-out accuracy:** 99.20%")
 st.sidebar.caption(
-    "Reported evaluation metrics are from the saved test set. "
-    "Performance on new articles may differ."
+    "Recomputed from the saved held-out feature array. This is not a "
+    "fresh training run; performance on new articles may differ."
 )
 
 
@@ -397,7 +397,7 @@ if st.button("🔍 Detect Fake News", type="primary"):
             "Value": linguistic_features,
         }
     )
-    st.dataframe(linguistic_df, use_container_width=True, hide_index=True)
+    st.dataframe(linguistic_df, width="stretch", hide_index=True)
 
     # ========================================================
     # SHAP EXPLANATION
@@ -473,7 +473,7 @@ if st.button("🔍 Detect Fake News", type="primary"):
         ).head(10).reset_index(drop=True)
 
         st.write("Top 10 linguistic features by absolute SHAP magnitude:")
-        st.dataframe(shap_df, use_container_width=True, hide_index=True)
+        st.dataframe(shap_df, width="stretch", hide_index=True)
 
         st.caption(
             "Positive signed SHAP values push the model toward the Fake class; "

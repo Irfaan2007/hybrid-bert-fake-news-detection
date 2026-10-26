@@ -1,7 +1,10 @@
 import pandas as pd
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 # Load combined dataset
-df = pd.read_csv("data/raw/news.csv")
+df = pd.read_csv(BASE_DIR / "data" / "raw" / "news.csv")
 
 print("========== DATASET INFO ==========")
 

@@ -1,7 +1,10 @@
 import pandas as pd
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 # Load cleaned dataset
-df = pd.read_csv("data/processed/news_clean.csv")
+df = pd.read_csv(BASE_DIR / "data" / "processed" / "news_clean.csv")
 
 print("========== CLEAN DATASET ==========")
 
