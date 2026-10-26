@@ -1,0 +1,20 @@
+Feature,Mean Absolute SHAP
+character_count,2.357576
+special_character_count,1.4797539
+adverb_count,0.9790469
+word_count,0.5571018
+verb_count,0.5200292
+proper_noun_count,0.51807237
+noun_count,0.48800963
+question_count,0.4492172
+repeated_word_count,0.4452846
+adjective_count,0.34449664
+uppercase_count,0.27242908
+sentence_count,0.26988536
+hashtag_count,0.20435593
+exclamation_count,0.14677054
+url_count,0.10719639
+mention_count,0.075222924
+average_sentence_length,0.07025306
+pronoun_count,0.056427952
+average_word_length,0.014992289

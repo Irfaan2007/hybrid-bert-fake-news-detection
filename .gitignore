@@ -1,0 +1,8 @@
+venv/
+.venv/
+__pycache__/
+.env
+.env.*
+data/raw/
+data/processed/news_clean.csv
+data/processed/*.npy
