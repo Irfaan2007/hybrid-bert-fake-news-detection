@@ -84,6 +84,66 @@ Therefore, these results should be treated as evaluation results from saved arti
 
 To reproduce training and evaluation, obtain the authorized source datasets, install the required dependencies, and run the notebook from beginning to end.
 
+### External evaluation
+
+The separate external evaluator loads the saved, unscaled Logistic Regression model and does not train or tune it. The IFND-format external dataset is intentionally excluded from version control.
+
+#### External evaluation results
+
+The saved classifier was evaluated on **56,714 external records**. The previously reported held-out accuracy was **99.2%**; accuracy on this external set was **70.10%**. The difference illustrates that a single held-out result does not guarantee performance on unfamiliar data.
+
+| Metric | Result |
+|---|---:|
+| Accuracy | 70.10% |
+| Macro-F1 | 69.57% |
+| Weighted-F1 | 70.90% |
+| Fake precision | 53.22% |
+| Fake recall | 85.43% |
+| Fake F1 | 65.58% |
+| ROC-AUC | 83.16% |
+| PR-AUC (average precision) | 72.12% |
+
+Confusion matrix (rows are actual labels; columns are predicted labels):
+
+| Actual \ Predicted | Real | Fake |
+|---|---:|---:|
+| Real | 23,597 | 14,203 |
+| Fake | 2,756 | 16,158 |
+
+The external data contains short statements rather than full-length articles. Statement length, publisher distribution, class balance, and dataset composition differ from training; therefore, these scores are not a like-for-like comparison with the held-out article score.
+
+#### Publisher and statement-length analysis
+
+Exploratory analysis found a strong publisher-label association (**Cramér's V = 0.969**). Of 29 publishers, five contained both Real and Fake examples, while 24 contained only one label. This suggests potential publisher and dataset-construction bias, but does not establish causation.
+
+| Statement length | Records | Accuracy | Fake F1 |
+|---|---:|---:|---:|
+| 0–50 characters | 4,449 | 62.22% | 32.52% |
+| 51–100 characters | 45,524 | 69.20% | 62.27% |
+| 101–250 characters | 6,711 | 81.30% | 86.89% |
+| More than 250 characters | 30 | 90.00% | 94.34% |
+
+The final length group contains only 30 records. These bucket results are descriptive: class balance and publisher mix also vary by length, so the analysis does not isolate a causal effect of length. Detailed publisher and length tables are in `results/external_evaluation/bias_analysis/`.
+
+The external dataset's provenance and complete independence from the training data have not been conclusively established. Exact normalized overlap checks found no matches against the available training corpus, but near-duplicates or related content cannot be ruled out.
+
+### Reproducing External Evaluation
+
+To reproduce the evaluation:
+
+1. Obtain the IFND dataset from its original, legitimate source and verify its provenance and applicable usage terms.
+2. Place the CSV file at `data/external/IFND.csv`.
+3. Activate the project's Python virtual environment and install the dependencies listed in `requirements.txt`, if necessary.
+4. Run the evaluation script from the project root:
+
+```bash
+python scripts/evaluate_external.py data/external/IFND.csv --overwrite
+```
+
+The CSV must contain `Statement` and `Label` columns. `TRUE` is mapped to Real (`0`) and `Fake` to Fake (`1`); only `Statement` is used as model input. The evaluator reports invalid/empty records, exact and approximate within-dataset duplicates, and exact normalized matches against the available training corpus. Duplicate or overlapping rows are reported, not silently filtered. Because statement-only claims are much shorter than the training articles, external results are not directly comparable to the held-out article test score.
+
+Metrics, a text classification report, and per-record predictions are written to `results/external_evaluation/`. The command's `--overwrite` option replaces prior evaluation output files. A fresh clone requires the dataset to be obtained and placed locally before the command can run.
+
 ## Project Structure
 
 ```text
