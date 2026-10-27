@@ -4,6 +4,7 @@ __pycache__/
 .env
 .env.*
 data/raw/
+data/external/
 data/processed/news_clean.csv
 data/processed/*.npy
 !data/processed/shap_background.npy

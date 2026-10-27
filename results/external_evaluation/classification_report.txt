@@ -1,0 +1,14 @@
+External evaluation of saved unscaled Logistic Regression
+Dataset: C:\Users\2007m\Desktop\FakeNewsDetection\data\external\IFND.csv
+Evaluated records: 56714
+Confusion matrix (rows actual, columns predicted; Real, Fake):
+[[23597, 14203], [2756, 16158]]
+
+              precision    recall  f1-score   support
+
+        Real     0.8954    0.6243    0.7356     37800
+        Fake     0.5322    0.8543    0.6558     18914
+
+    accuracy                         0.7010     56714
+   macro avg     0.7138    0.7393    0.6957     56714
+weighted avg     0.7743    0.7010    0.7090     56714

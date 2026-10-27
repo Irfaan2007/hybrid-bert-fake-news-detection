@@ -1,0 +1,210 @@
+{
+  "dataset": {
+    "path": "C:\\Users\\2007m\\Desktop\\FakeNewsDetection\\data\\external\\IFND.csv",
+    "filename_identity": "IFND.csv",
+    "text_encoding": "cp1252 (undefined bytes replaced)",
+    "rows_total": 56714,
+    "rows_evaluated": 56714,
+    "rows_excluded": 0,
+    "excluded_invalid_or_missing_label": 0,
+    "excluded_empty_statement": 0,
+    "observed_nonempty_label_values": [
+      "Fake",
+      "TRUE"
+    ],
+    "label_mapping": {
+      "TRUE": 0,
+      "Fake": 1
+    },
+    "label_distribution": {
+      "Real": 37800,
+      "Fake": 18914
+    },
+    "input_text_column": "Statement",
+    "metadata_excluded_from_model_input": [
+      "id",
+      "Web",
+      "Category",
+      "Date"
+    ],
+    "text_format_note": "Statement-only short claims/headline-like records are evaluated without adding or fabricating article text.",
+    "statement_length_characters": {
+      "median": 77.0,
+      "p90": 105.0,
+      "maximum": 348
+    },
+    "training_combined_document_length_characters": {
+      "median_characters": 2309.5,
+      "p90_characters": 4557.700000000004
+    }
+  },
+  "model": {
+    "path": "C:\\Users\\2007m\\Desktop\\FakeNewsDetection\\data\\processed\\logistic_regression_model.pkl",
+    "classifier": "LogisticRegression",
+    "bert_model": "bert-base-uncased",
+    "bert_representation": "last_hidden_state[:, 0, :] (CLS)",
+    "bert_max_length": 256,
+    "bert_truncation": true,
+    "linguistic_feature_names": [
+      "word_count",
+      "sentence_count",
+      "character_count",
+      "average_word_length",
+      "average_sentence_length",
+      "noun_count",
+      "verb_count",
+      "adjective_count",
+      "adverb_count",
+      "pronoun_count",
+      "proper_noun_count",
+      "exclamation_count",
+      "question_count",
+      "uppercase_count",
+      "url_count",
+      "hashtag_count",
+      "mention_count",
+      "special_character_count",
+      "repeated_word_count"
+    ],
+    "feature_order": "768 BERT CLS values, then the 19 listed linguistic values",
+    "feature_count": 787,
+    "classifier_classes": [
+      0,
+      1
+    ],
+    "scaling": "None; app uses the saved unscaled Logistic Regression."
+  },
+  "metrics": {
+    "accuracy": 0.7009733046514088,
+    "precision_fake_positive": 0.5321959092256513,
+    "recall_fake_positive": 0.8542878291212859,
+    "f1_fake_positive": 0.6558295281582953,
+    "macro_f1": 0.6957385603162682,
+    "weighted_f1": 0.7090284355029149,
+    "roc_auc_fake": 0.8316465624410797,
+    "precision_recall_auc_average_precision": 0.7212294023372235,
+    "roc_auc_note": null,
+    "confusion_matrix": {
+      "labels_order": [
+        "Real",
+        "Fake"
+      ],
+      "rows_actual_columns_predicted": [
+        [
+          23597,
+          14203
+        ],
+        [
+          2756,
+          16158
+        ]
+      ]
+    },
+    "classification_report": "              precision    recall  f1-score   support\n\n        Real     0.8954    0.6243    0.7356     37800\n        Fake     0.5322    0.8543    0.6558     18914\n\n    accuracy                         0.7010     56714\n   macro avg     0.7138    0.7393    0.6957     56714\nweighted avg     0.7743    0.7010    0.7090     56714\n"
+  },
+  "data_quality": {
+    "exact_duplicate_normalized_statement_groups": 590,
+    "exact_duplicate_extra_rows": 590,
+    "near_duplicates": {
+      "method": "Approximate MinHash candidate search over normalized word 3-gram sets (word tokens used for texts shorter than 3 words); Jaccard threshold 0.80.",
+      "unique_nonempty_texts_checked": 56124,
+      "candidate_pairs_checked": 11208,
+      "candidate_pair_limit": 250000,
+      "candidate_limit_reached": false,
+      "near_duplicate_pairs": 1902,
+      "unique_texts_in_near_duplicate_pairs": 2800,
+      "rows_in_near_duplicate_pairs": 2841,
+      "records_filtered_for_near_duplicates": 0
+    },
+    "training_overlap": {
+      "training_corpus_path": "C:\\Users\\2007m\\Desktop\\FakeNewsDetection\\data\\processed\\news_clean.csv",
+      "training_rows_checked": 38514,
+      "normalization": "Unicode NFKC, casefold, whitespace collapse; punctuation retained.",
+      "exact_external_record_matches": {
+        "training_title": 0,
+        "training_body": 0,
+        "training_title_and_body": 0,
+        "any_training_field": 0
+      },
+      "records_removed_for_overlap": 0
+    },
+    "source_web_label_counts_top_15": {
+      "TRIBUNEINDIA": {
+        "records": 11832,
+        "real": 11832,
+        "fake": 0
+      },
+      "AUGMENT": {
+        "records": 11321,
+        "real": 0,
+        "fake": 11321
+      },
+      "THEPRINT": {
+        "records": 8582,
+        "real": 8238,
+        "fake": 344
+      },
+      "THESTATESMAN": {
+        "records": 7202,
+        "real": 7202,
+        "fake": 0
+      },
+      "THESTATEMAN": {
+        "records": 4048,
+        "real": 4048,
+        "fake": 0
+      },
+      "INDIANEXPRESS": {
+        "records": 3983,
+        "real": 3983,
+        "fake": 0
+      },
+      "NEWSMOBILE": {
+        "records": 2422,
+        "real": 232,
+        "fake": 2190
+      },
+      "INDIATODAY": {
+        "records": 1698,
+        "real": 92,
+        "fake": 1606
+      },
+      "BOOMLIVE": {
+        "records": 806,
+        "real": 0,
+        "fake": 806
+      },
+      "CNN": {
+        "records": 778,
+        "real": 778,
+        "fake": 0
+      },
+      "NEWSMETER": {
+        "records": 572,
+        "real": 66,
+        "fake": 506
+      },
+      "ONEINDIA": {
+        "records": 549,
+        "real": 0,
+        "fake": 549
+      },
+      "BSMEDIA": {
+        "records": 449,
+        "real": 449,
+        "fake": 0
+      },
+      "TEEKHIMIRCHI": {
+        "records": 387,
+        "real": 125,
+        "fake": 262
+      },
+      "FACTCRESCENDO": {
+        "records": 272,
+        "real": 0,
+        "fake": 272
+      }
+    },
+    "dataset_provenance_note": "The filename and fields are consistent with an IFND-format Indian fake-news dataset, but this local archive does not authenticate the original publisher or collection provenance."
+  }
+}
